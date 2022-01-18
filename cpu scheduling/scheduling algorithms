@@ -1,0 +1,232 @@
+CPU Scheduling algorithm is an algorithm which is used to assign system resources to processes in a computing system. Consider the case where you are using two apps namely a game like Fortnite and a desktop application like Evernote. Both with require the use of a graphics processor and but only one can use it at a time. It is the CPU scheduling algorithms which manages which process will use a given resource at a time. The focus of such algorithms is to maximize CPU resources usage and minimize waiting time for each process.
+
+The different CPU algorithms are:
+
+First Come First Serve
+Shortest Job First
+Shortest Remaining Time First
+Round Robin Scheduling
+Priority Scheduling
+Multilevel Queue Scheduling
+Multilevel Feedback Queue Scheduling
+Introduction
+We will go through some basic information regarding CPU scheduling and some keywords that are frequently used in CPU scheduling algorithms so that we can understand the different algorithms better.
+
+When the CPU is free, and its resources are available, then the CPU must select a process from the ready queue and allocate resources for its execution. Selection is performed with the help of CPU schedulers where the CPU scheduler selects a process from the list of available processes (processes which are present in the ready queue).
+
+
+ 
+We need algorithms for this task to ensure the computing device is able to use all its resources to the fullest.
+
+Objectives of CPU Scheduling:
+
+Maximum CPU utilization
+Fair allocation of CPU
+Maximum throughput (number of processes executing per second)
+Minimum turn around time (time taken to finish execution)
+Minimum waiting time (time for which process waits in ready queue)
+Minimum Response Time (time when process produces first response)
+Key terms to understand different algorithms:
+
+Arrival Time : Time at which any process arrives in ready queue.
+Burst Time : Time required by CPU for execution of a process. It is also called as Running Time or Execution Time.
+Completion Time : Time at which process completes execution.
+Turn Around Time : Time difference between Completion Time and Arrival Time (Completion Time - Arrival Time)
+Waiting Time : Time difference between Turn Around Time and Burst Time (Turn Around Time - Burst Time)
+Response Time : Time after which any process gets CPU after entering the ready queue.
+Preemptive Scheduling : It is used if there is process switching from running state to ready state or from ready state to waiting state.
+Resources allocated to a process are for a limited time.
+Process can be interruped in between.
+In case, high priority process arrives, low priority processes may starve.
+It is flexible in nature.
+Non-Preemptive Scheduling : It is used if any process terminates or there is process switching from running to waiting state.
+Resources allocated to a process arehold untill it terminates or it switches to waiting state.
+Process can't be interrupted in between.
+In case, process with high burst time is running, other processes may starve.
+It is rigid in nature.
+Different Scheduling Algorithms
+1. First Come First Serve
+It is a simple scheduling algorithm. The idea is that the process that comes first must use the resource first.
+
+It schedules according to the arrival time of the process. It states that process which request the CPU first is allocated the CPU first. It is implemented by using FIFO (First Come First Serve) queue and is a Non-Preemptive scheduling algorithm.
+
+We will understand it better using this example:
+
+PROCESS	BURST TIME	WAITING TIME	TURN AROUND TIME
+P1	8	0	8
+P2	3	8	11
+P3	5	11	16
+P4	3	16	19
+Analysing the given proccesses, first the process P1 will be executed. Therefore, waiting time of process P1 will be 0.
+As, process P1 takes 8 units of time for completion, so waiting time for process P2 will be 8.
+Likewise, waiting time of process P3 will be execution time of process P1 + execution time for process P2, i.e. (8 + 3) units = 11 units. F
+urthermore, for process P4 it will be the sum of execution times of P1, P2 and P3.
+
+Advantages of FCFS :
+
+Simple
+Easy, useful and understandable
+First come, first served.
+Disadvantages of FCFS :
+
+Because of non-preemptive scheduling, the process will continue to run untill it is finished.
+As the scheduling is non-preemptive so short processes which are at end of ready queue have to wait for a larger time making them starve leading to problem of starvation.
+Throughput is not efficient.
+2. Shortest Job First
+Process with the shortest burst time is scheduled first. If two processes have same burst time, then FCFS is used to break the tie. It is a Non-Preemptive scheduling algorithm.
+
+We will understand it better using this example:
+
+PROCESS	ARRIVAL TIME	BURST TIME	WAITING TIME	TURN AROUND TIME
+P1	1	7	0	7
+P2	3	3	7	10
+P3	6	2	2	4
+P4	7	10	14	24
+P5	9	8	4	12
+Since arrival time of any process is not 0, there will be no execution or allocation of CPU from time 0 to 1.
+
+Following the algorithm further, process having the least burst time among the available processes will be executed. Till now, we have only one process in the ready queue hence the process will be scheduled no matter what the burst time is.
+
+
+ 
+The process will be executed till 8 units of time. Till then three more processes have arrived in the ready queue therefore, the process with the lowest burst time will be choosen. P3 will be executed next as it has lowest burst time. So that's how the process will go on in shortest job first (SJF) scheduling algorithm.
+
+Advantages of SJF :
+
+Has minimum waiting time in comparison with other Scheduling Algorithms.
+Disadvantages of SJF :
+
+Very difficult to predict the burst time of processes.
+Long running CPU bound jobs can starve.
+3. Shortest Remaining Time First
+It is the preemptive mode of SJF CPU scheduling in which resources are allocated to processes according to the shortest remaining time.
+
+We will understand it better using this example:
+
+PROCESS	ARRIVAL TIME	BURST TIME	WAITING TIME	TURN AROUND TIME
+P1	0	8	12	20
+P2	1	4	5	9
+P3	2	2	0	2
+P4	3	1	1	2
+P5	4	3	6	9
+P6	5	2	0	2
+Starting with time t=0, the only available process is P1, as P1 being the only process available so it is allocated with resources untill next process arrives.
+
+At time t=1, the next process arrives in the ready queue. So, now there are two processes in the ready queue. The remaining burst time for process P1 is now 7 units as it has been executed for 1 unit till now. The burst time for P2 is 4,hence process P2 is provided with CPU resources for the time being.
+
+
+ 
+The next process P3 arrives at time t=2. Now the execution of P2 is stopped and the processes are checked for least remaining burst time. Since the process P3 has burst time of 2 therefore it will be provided with CPU resources.
+
+Process P4 arrives at t=3. Now the least burst time will be checked among the processes in ready queue. P1 and P2 have 7 and 3 units as their burst time, also, burst time of both P3 and P4 is 1 unit, as remaining burst time being same, so the scheduling will be done according to their arrival time. P3 arrives earlier therefore it will be provided with resources.
+
+Process P5 arrives at time t=4. Now the remaining burst time of all the processes will be compared and the process with least remaining burst time will be executed i.e. P4.
+
+
+ 
+Process P6 arrives at time t=5, till now Process P4 has completed its execution. At last, 4 processes are available, i.e. P1 (7), P2 (3), P5 (3) and P6 (2). The Burst time of P6 is the least, hence P6 is scheduled.
+
+Now, as all processes have arrived, so the scheduling will continue to be according to SJF schedule.
+
+Advantages and Disadvantages of SRTF are similar to SJF as it is preemptive case of SJF.
+
+4. Round Robin Scheduling
+Each process is assigned a Time Quantum in a cyclic way. It is designed specially for Time-Sharing system so the execution of ready queue must be in form of circular queue. CPU is alloted to each process for time interval of one time quantum. New processes are added at the end of ready queue. If process has burst time less than a time quantum, the process will release itself of CPU voluntarily after its execution. But, if burst time is greater than a time quantum, then after the time quantum, interrupt will occur and process will be put at the end of ready queue by executing a Context Switching.
+
+We will understand it better using this example:
+
+TIME QUANTUM = 2 (for given example)
+
+PROCESS	BURST TIME	WAITING TIME	TURN AROUND TIME
+P1	8	10	18
+P2	3	4	7
+P3	5	14	19
+P4	3	11	14
+Select the first process and start executing the process (for quantum time only). Check if any other process request has arrived.
+
+In case any process arrives during the execution time of first process the process will be added to circular queue. After execution of the process for the quantum time, check for the availability of processes.
+
+
+ 
+If no process is in ready queue, then continue for the previous process. If not add current process to the end of the ready queue.
+
+Take next process from ready queue and start executing it(same rules). Repeat all above steps till all processes are complete.
+
+Advantages of RR :
+
+Priority is same for all processes as they are provided with same resources.
+Starvation does not occur because of its cyclic nature.
+Disadvantages of RR :
+
+Throughput depends on quantum time.
+Processes can't be prioritised.
+Average waiting time can be bad.
+5. Priority Scheduling
+Processes are executed according to their priorities (processes with high priority are executed first). In case, processes have same priorities, then processes are sorted according to Arrival Time following the FCFS algorithm.
+
+We will understand it better using this example:
+
+PROCESS	PRIORITY	BURST TIME	ARRIVAL TIME	WAITING TIME	TURN AROUND TIME
+P1	2	1	0	0	1
+P2	6	7	1	14	21
+P3	3	3	2	0	3
+P4	5	6	3	7	13
+P5	4	5	4	1	6
+P6	10	15	5	25	40
+P7	9	8	6	16	24
+At time 0, P1 arrives with the burst time of 1 units and priority 2. As no other process is available so it will be provided with resources untill it finishes or next process arrives.
+
+At time t=1, P2 arrives. As process P1 is complete and no other process is available so the process P2 will be scheduled and will be provided with resources.
+
+Process P3 arrives at time t=2, as the priority of P3 is higher, so the execution of P2 will be stopped and P3 will be allocated with resources.
+
+During the execution of P3, three more processes P4, P5 and P6 becomes available. Since, all these three have the priority lower to the process in execution so PS can't preempt the process.
+
+On the completion of process P3, process P5 will be executed as it is having maximum priority. Meanwhile the execution of P5, all the processes got available in the ready queue.
+
+Now the algorithm will behave as non-preemptive algorithm.
+
+Hence now, once all the processes get available in the ready queue, the OS just took the process with the highest priority and execute that process till completion.
+
+Now process P4 will be scheduled and will be assigned resources untill completion. As process P2 is having highest priority after the process P4 so, P2 will be scheduled next.
+
+P2 is assigned the CPU till the completion. As the remaining burst time is 6 units so process P7 will be scheduled.
+
+As only process P6 is remaining so process P6 will be executed at last.
+
+Advantages of PS :
+
+The priority of the process can be selected first based on its memory consumption, etc.
+Disadvantages of PS :
+
+Processes with same priority requires second scheduling algorithm.
+Starvation may occur as lower priority process keeps waiting for higher priority process.
+6. Multilevel Queue Scheduling
+Multilevel Queue Scheduling partitions the ready queue into several classes where each class is provided with it's scheduling needs.
+
+Characterstics of Multilevel Queue Scheduling :
+
+Each queue has it's own Scheduling algorithm. For each queue there can be same or different scheduling algorithm.
+Processes are divided according to their type, memory consumption, etc.. in different queues.
+Advantages of Multilevel Queue :
+
+Has low scheduling overhead.
+Disadvantages of Multilevel Queue :
+
+Can lead to starvation because running process can be preempted from low priority queue when there is a new process in high priority queue.
+Processes can't switch queue after they are scheduled.
+7. Multilevel Feedback Queue Scheduling
+Multilevel Feedback Queue Scheduling partitions the ready queue into several classes where each class is provided with it's scheduling needs. Also processes are allowed to move between queues. In case, a process consumes too much of CPU's time then the process will be shifted to lower priority while in case of starving process, the process will be shifted to higher priority queue.
+
+Characterstics of Multilevel Queue Scheduling :
+
+Each queue has it's own Scheduling algorithm. For each queue there can be same or different scheduling algorithm.
+Processes are divided according to their type, memory consumption, etc.. in different queues.
+There can be change in process class according to some pre defined conditions.
+Advantages of Multilevel Feedback Queue :
+
+Starving processes can be moved to higher priority making the scheduling more effective.
+Disadvantages of Multilevel Feedback Queue :
+
+Moving the processes among queues may result in overheads.
+With this, you will have the complete idea of the different CPU Scheduling algorithms.
