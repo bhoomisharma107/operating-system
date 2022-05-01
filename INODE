@@ -1,0 +1,28 @@
+
+
+14 Bytes            	2 Bytes
+File name 1	i-node 1
+File name 2	i-node 2
+Directory name 1	i-node 3
+Numeric UID of the owner.
+Numeric GUID of the owner.
+Size of the file.
+File type: regular,directory,device etc…
+Date and Time of Last modification of the file data.
+Date and Time of Last access of file data.
+Date and Time of Last change of the I-node.
+Administrative information (permissions, timestamps, etc).
+A number of direct blocks (typically 12) that contains to the first 12 blocks of the files.
+A single indirect pointer that points to a disk block which in turn is used as an index block, if the file is too big to be indexed entirely by the direct blocks.
+A double indirect pointer that points to a disk block which is a collection of pointers to disk blocks which are index blocks, used if the file is too big to beindexed by the direct and single indirect blocks.
+A triple indirect pointer that points to an index block of index blocks of index blocks.
+Inode Total Size: 
+ 
+
+Number of disk block address possible to store in 1 disk block = (Disk Block Size / Disk Block Address).
+Small files need only the direct blocks, so there is little waste in space or extra disk reads in those cases. Medium sized files may use indirect blocks. Only large files make use of the double or triple indirect blocks, and that is reasonable since those files are large anyway.The disk is now broken into two different types of blocks: Inode and Data Blocks.
+There must be some way to determine where the Inodes are, and to keep track of free Inodes and disk blocks. This is done by a Superblock. Superblock is located at a fixed position in the file system. The Superblock is usually replicated on the disk to avoid catastrophic failure in case of corruption of the main Superblock.
+Index allocation schemes suffer from some of the same performance problems. As does linked allocation. For example, the index blocks an be cached in memory, but the data blocks may be spread all over a partition.
+ 
+
+INODE
